@@ -1,0 +1,251 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f0f4ff;
+}
+
+/* ── HEADER ── */
+header {
+    background: #2563eb;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+}
+
+/* ── SEARCH BAR ── */
+.search-box {
+    display: flex;
+    gap: 10px;
+    padding: 16px 20px;
+    background: white;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.search-box input {
+    padding: 10px 14px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.search-box button {
+    padding: 10px 18px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+.search-box button:hover { background: #1e40af; }
+
+.search-box .btn-smart {
+    background: #f0f4ff;
+    color: #2563eb;
+    border: 1px solid #2563eb;
+}
+.search-box .btn-smart:hover { background: #dbeafe; }
+
+.search-box .btn-reset {
+    background: white;
+    color: #6b7280;
+    border: 1px solid #d1d5db;
+}
+.search-box .btn-reset:hover { background: #f3f4f6; color: #111; }
+
+/* ── FILTER SECTION ── */
+.filter-section {
+    background: white;
+    padding: 12px 20px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filter-group {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-label {
+    font-size: 14px;
+    color: #374151;
+    font-weight: bold;
+    min-width: 72px;
+    padding-top: 6px;
+    white-space: nowrap;
+}
+
+.chip-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chip {
+    padding: 6px 16px;
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    background: white;
+    color: #374151;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.chip:hover {
+    border-color: #2563eb;
+    color: #2563eb;
+}
+
+/* Nút "Tất cả" khi active */
+.chip-all.active {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+.chip-all:not(.active):hover {
+    border-color: #2563eb;
+    color: #2563eb;
+}
+
+/* active = đang được chọn (chip thường) */
+.chip.active:not(.chip-all) {
+    background: #1f2937;
+    color: white;
+    border-color: #1f2937;
+}
+
+/* ── RESULT BAR ── */
+.result-bar {
+    padding: 8px 20px;
+    background: #f8faff;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 13px;
+    color: #6b7280;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#resultCount { font-weight: bold; color: #111; }
+#activeFiltersLabel { color: #2563eb; }
+
+/* ── ROOM GRID ── */
+.room-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* ── ROOM CARD ── */
+.room-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.room-card:hover { transform: translateY(-5px); }
+
+.room-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.room-info { padding: 15px; }
+
+.room-info h3 {
+    color: #2563eb;
+    margin-bottom: 8px;
+}
+
+.address {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.price {
+    color: red;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 8px 0 4px;
+}
+
+.price span {
+    font-size: 13px;
+    font-weight: normal;
+    color: #666;
+}
+
+.deposit {
+    font-size: 13px;
+    color: #444;
+    margin-bottom: 8px;
+}
+
+.deposit a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.deposit a:hover { text-decoration: underline; }
+
+.desc {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tag {
+    display: inline-block;
+    background: #dbeafe;
+    color: #1e3a8a;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+/* ── EMPTY STATE ── */
+.no-result {
+    text-align: center;
+    color: #888;
+    padding: 40px;
+    grid-column: 1 / -1;
+    font-size: 16px;
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Tìm Phòng Trọ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>🏠 Hệ Thống Tìm Phòng Trọ Sinh Viên</h1>
+    </header>
+
+    <section class="search-box">
+        <input type="text" id="search" placeholder="Tìm theo khu vực, tên phòng, số điện thoại, tiện nghi..."
+               oninput="filterRooms()">
+        <button onclick="filterRooms()">🔍 Tìm kiếm</button>
+        <button class="btn-smart" onclick="smartSuggest()">✨ Gợi Ý Thông Minh</button>
+        <button class="btn-reset" onclick="resetFilter()">✕ Xoá lọc</button>
+    </section>
+
+    <section class="filter-section">
+        <div class="filter-group">
+            <span class="filter-label">Giá thuê:</span>
+            <div class="chip-group" id="priceChips">
+                <button class="chip chip-all active" data-value="all" onclick="toggleAll('price', this)">Tất cả</button>
+                <button class="chip" data-value="1000000" onclick="toggleChip('price', '1000000', this)">Dưới 1 triệu</button>
+                <button class="chip" data-value="2000000" onclick="toggleChip('price', '2000000', this)">1 - 2 triệu</button>
+                <button class="chip" data-value="3000000" onclick="toggleChip('price', '3000000', this)">2 - 3 triệu</button>
+                <button class="chip" data-value="5000000" onclick="toggleChip('price', '5000000', this)">3 - 5 triệu</button>
+                <button class="chip" data-value="7000000" onclick="toggleChip('price', '7000000', this)">5 - 7 triệu</button>
+                <button class="chip" data-value="99000000" onclick="toggleChip('price', '99000000', this)">Trên 7 triệu</button>
+            </div>
+        </div>
+
+        <div class="filter-group">
+            <span class="filter-label">Tiện nghi:</span>
+            <div class="chip-group" id="amenityChips">
+                <button class="chip chip-all active" data-value="all" onclick="toggleAll('amenity', this)">Tất cả</button>
+                <button class="chip" data-value="wifi"     onclick="toggleChip('amenity', 'wifi', this)">📶 Wifi</button>
+                <button class="chip" data-value="ac"       onclick="toggleChip('amenity', 'ac', this)">❄️ Máy lạnh</button>
+                <button class="chip" data-value="parking"  onclick="toggleChip('amenity', 'parking', this)">🛵 Giữ xe</button>
+                <button class="chip" data-value="hotwater" onclick="toggleChip('amenity', 'hotwater', this)">🚿 Nóng lạnh</button>
+                <button class="chip" data-value="toilet"   onclick="toggleChip('amenity', 'toilet', this)">🚽 WC riêng</button>
+                <button class="chip" data-value="school"   onclick="toggleChip('amenity', 'school', this)">🏫 Gần trường</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="result-bar" id="resultBar" style="display:none;">
+        <span id="resultCount"></span>
+        <span id="activeFiltersLabel"></span>
+    </div>
+
+    <section id="roomList" class="room-container"></section>
+
+    <script src="script.js"></script>
+</body>
+</html>
