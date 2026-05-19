@@ -1,9 +1,9 @@
 const rooms = [
     {
         id: 1,
-        name: "Phòng Trọ Quận 1",
-        area: "Quận 1",
-        address: "Kiệt 45 Nguyễn Trãi, Quận 1",
+        name: "Phòng Trọ Hải Châu",
+        area: "Hải Châu",
+        address: "15 Trần Phú, Hải Châu, Đà Nẵng",
         price: 2500000,
         deposit: 1,
         image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
@@ -15,13 +15,13 @@ const rooms = [
         hotWater: true,
         ownToilet: true,
         balcony: false,
-        description: "Phòng thoáng mát, có cửa sổ, không chung chủ. Điện 3.5k/số, nước 8k/khối."
+        description: "Phòng thoáng mát, có cửa sổ, gần ĐH Kinh Tế Đà Nẵng. Điện 3.5k/số, nước 8k/khối. Không chung chủ."
     },
     {
         id: 2,
-        name: "Phòng Trọ Thủ Đức",
-        area: "Thủ Đức",
-        address: "119 Võ Văn Ngân, Thủ Đức",
+        name: "Phòng Trọ Ngũ Hành Sơn",
+        area: "Ngũ Hành Sơn",
+        address: "87 Lê Văn Hiến, Ngũ Hành Sơn, Đà Nẵng",
         price: 1800000,
         deposit: 1,
         image: "https://images.unsplash.com/photo-1494526585095-c41746248156",
@@ -33,13 +33,13 @@ const rooms = [
         hotWater: false,
         ownToilet: false,
         balcony: false,
-        description: "Gần ĐH Sư Phạm Kỹ Thuật, bệnh viện. Cửa tự do, không ngập, không ẩm."
+        description: "Gần ĐH FPT Đà Nẵng và Làng Đại học. Cửa tự do 24/7, khu vực yên tĩnh, không ngập lụt."
     },
     {
         id: 3,
-        name: "Phòng Trọ Bình Thạnh",
-        area: "Bình Thạnh",
-        address: "354 Đinh Bộ Lĩnh, Bình Thạnh",
+        name: "Phòng Trọ Thanh Khê",
+        area: "Thanh Khê",
+        address: "204 Điện Biên Phủ, Thanh Khê, Đà Nẵng",
         price: 3200000,
         deposit: 2,
         image: "https://images.unsplash.com/photo-1484154218962-a197022b5858",
@@ -51,7 +51,115 @@ const rooms = [
         hotWater: true,
         ownToilet: true,
         balcony: true,
-        description: "Phòng gác lửng đầy đủ nội thất. Có ban công, cửa sổ thoáng mát. Hỗ trợ phí vận chuyển."
+        description: "Phòng gác lửng đầy đủ nội thất. Có ban công, cửa sổ thoáng. Gần chợ Thanh Khê, tiện đi lại."
+    },
+    {
+        id: 4,
+        name: "Phòng Trọ Liên Chiểu",
+        area: "Liên Chiểu",
+        address: "33 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng",
+        price: 950000,
+        deposit: 1,
+        image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+        phone: "0934567890",
+        nearSchool: true,
+        wifi: true,
+        airConditioner: false,
+        parking: true,
+        hotWater: false,
+        ownToilet: false,
+        balcony: false,
+        description: "Phòng nhỏ gọn giá siêu rẻ, gần ĐH Bách Khoa Đà Nẵng. Điện nước giá nhà nước. Xung quanh có nhiều quán ăn bình dân."
+    },
+    {
+        id: 5,
+        name: "Phòng Trọ Sơn Trà",
+        area: "Sơn Trà",
+        address: "56 Ngô Quyền, Sơn Trà, Đà Nẵng",
+        price: 4500000,
+        deposit: 2,
+        image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136",
+        phone: "0945678901",
+        nearSchool: false,
+        wifi: true,
+        airConditioner: true,
+        parking: true,
+        hotWater: true,
+        ownToilet: true,
+        balcony: true,
+        description: "Phòng studio cao cấp full nội thất: giường, tủ, bàn làm việc, tủ lạnh, máy giặt. View biển, gần Bãi Mỹ Khê, an ninh tốt."
+    },
+    {
+        id: 6,
+        name: "Phòng Trọ Cẩm Lệ",
+        area: "Cẩm Lệ",
+        address: "122 Cách Mạng Tháng 8, Cẩm Lệ, Đà Nẵng",
+        price: 2200000,
+        deposit: 1,
+        image: "https://images.unsplash.com/photo-1536376072261-38c75010e6c9",
+        phone: "0956789012",
+        nearSchool: true,
+        wifi: true,
+        airConditioner: true,
+        parking: true,
+        hotWater: true,
+        ownToilet: false,
+        balcony: false,
+        description: "Gần ĐH Duy Tân và ĐH Đông Á. Phòng mới xây, sạch sẽ, thoáng mát. Chủ nhà thân thiện, hỗ trợ sinh viên ngoại tỉnh."
+    },
+    {
+        id: 7,
+        name: "Phòng Trọ Ngũ Hành Sơn Cao Cấp",
+        area: "Ngũ Hành Sơn",
+        address: "38 Trường Sa, Ngũ Hành Sơn, Đà Nẵng",
+        price: 6500000,
+        deposit: 2,
+        image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
+        phone: "0967890123",
+        nearSchool: false,
+        wifi: true,
+        airConditioner: true,
+        parking: true,
+        hotWater: true,
+        ownToilet: true,
+        balcony: true,
+        description: "Căn hộ mini cao cấp gần biển Mỹ Khê, view đẹp. Đầy đủ nội thất hiện đại, thang máy, bảo vệ 24/7. Gần các resort và trung tâm thương mại."
+    },
+    {
+        id: 8,
+        name: "Phòng Trọ Hòa Vang",
+        area: "Hòa Vang",
+        address: "75 Quốc lộ 14B, Hòa Vang, Đà Nẵng",
+        price: 1500000,
+        deposit: 1,
+        image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267",
+        phone: "0978901234",
+        nearSchool: true,
+        wifi: false,
+        airConditioner: false,
+        parking: true,
+        hotWater: false,
+        ownToilet: true,
+        balcony: false,
+        description: "Phòng rộng rãi thoáng mát, WC riêng khép kín. Gần ĐH Sư Phạm Đà Nẵng, chợ, tiện lợi. Không chung chủ, ra vào tự do."
+    },
+    {
+        id: 9,
+        name: "Phòng Trọ Hải Châu Trung Tâm",
+        area: "Hải Châu",
+        address: "9 Bạch Đằng, Hải Châu, Đà Nẵng",
+        price: 3800000,
+        deposit: 2,
+        image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb",
+        phone: "0989012345",
+        nearSchool: true,
+        wifi: true,
+        airConditioner: true,
+        parking: true,
+        hotWater: true,
+        ownToilet: true,
+        balcony: false,
+        description: "Ngay trung tâm Đà Nẵng, sát sông Hàn. Gần ĐH Kinh Tế và ĐH Ngoại Ngữ. Phòng yên tĩnh, đầy đủ tiện nghi, điện 2.5k/số."
     }
 ];
 
@@ -89,10 +197,11 @@ const synonyms = {
     "gần trường":    ["gần trường", "gần đại học", "gần trường học", "gần đh", "sinh viên"],
     "ban công":      ["ban công", "balcony", "sân thượng"],
     "rẻ":            ["rẻ", "giá rẻ", "tiết kiệm", "sinh viên"],
-    "trung tâm":     ["trung tâm", "quận 1", "nội thành"],
+    "trung tâm":     ["trung tâm", "hải châu", "bạch đằng"],
     "nội thất":      ["nội thất", "đầy đủ", "có tủ", "có giường", "có bàn"],
     "không chung chủ": ["không chung chủ", "tự do", "riêng tư"],
     "thoáng":        ["thoáng", "thoáng mát", "cửa sổ", "thoáng đãng"],
+    "biển":          ["biển", "mỹ khê", "view biển", "sơn trà"],
 };
 
 const roomList = document.getElementById("roomList");
@@ -101,9 +210,6 @@ const roomList = document.getElementById("roomList");
    FUZZY / BROAD SEARCH
    ══════════════════════════════════════════════ */
 
-/**
- * Chuẩn hoá chuỗi: bỏ dấu, viết thường, trim
- */
 function normalize(str) {
     return str
         .toLowerCase()
@@ -113,9 +219,6 @@ function normalize(str) {
         .trim();
 }
 
-/**
- * Mở rộng từ khoá qua bảng đồng nghĩa
- */
 function expandKeyword(kw) {
     const normKw = normalize(kw);
     const expanded = new Set([normKw]);
@@ -127,65 +230,39 @@ function expandKeyword(kw) {
     return [...expanded];
 }
 
-/**
- * Kiểm tra một token có xuất hiện trong chuỗi haystack không
- * Hỗ trợ: khớp trực tiếp + khớp một phần số điện thoại
- */
 function tokenMatches(token, haystack) {
     const normHay = normalize(haystack);
     if (normHay.includes(token)) return true;
-
-    // Tìm kiếm số điện thoại một phần: chỉ giữ chữ số trong token và haystack
     const digitsToken = token.replace(/\D/g, "");
     if (digitsToken.length >= 3) {
         const digitsHay = haystack.replace(/\D/g, "");
         if (digitsHay.includes(digitsToken)) return true;
     }
-
     return false;
 }
 
-/**
- * Tính điểm phù hợp của một phòng với từ khoá (0 = không khớp)
- */
 function scoreRoom(room, keyword) {
-    if (!keyword) return 1; // Không có từ khoá → luôn hiện
-
+    if (!keyword) return 1;
     const searchFields = [
-        room.name,
-        room.area,
-        room.address,
-        room.description,
-        room.phone,
+        room.name, room.area, room.address, room.description, room.phone,
     ].join(" ");
-
-    // Tách từng token (hỗ trợ nhập nhiều từ)
-    const tokens = keyword.toLowerCase().trim().split(/\s+/);
-
-    // Mở rộng từng token qua từ đồng nghĩa
+    const tokens  = keyword.toLowerCase().trim().split(/\s+/);
     const allTerms = tokens.flatMap(t => expandKeyword(t));
-
     let matchCount = 0;
     for (const term of allTerms) {
-        if (tokenMatches(term, searchFields)) {
-            matchCount++;
-        }
+        if (tokenMatches(term, searchFields)) matchCount++;
     }
-
-    // Nếu ít nhất 1 term khớp → hiện phòng; điểm cao hơn = ưu tiên hơn
     return matchCount;
 }
 
 /* ══════════════════════════════════════════════
-   TOGGLE CHIP — "Tất cả" + multi-select
+   TOGGLE CHIP
    ══════════════════════════════════════════════ */
 
 function toggleAll(type, el) {
-    const set       = type === "price" ? activePrices : activeAmenities;
-    const groupId   = type === "price" ? "priceChips" : "amenityChips";
-    const group     = document.getElementById(groupId);
-
-    // Xoá tất cả lựa chọn, bật lại nút "Tất cả"
+    const set     = type === "price" ? activePrices : activeAmenities;
+    const groupId = type === "price" ? "priceChips" : "amenityChips";
+    const group   = document.getElementById(groupId);
     set.clear();
     group.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
     el.classList.add("active");
@@ -197,36 +274,29 @@ function toggleChip(type, value, el) {
     const groupId = type === "price" ? "priceChips" : "amenityChips";
     const group   = document.getElementById(groupId);
     const allBtn  = group.querySelector(".chip-all");
-
-    // Tắt nút "Tất cả" khi chọn giá trị cụ thể
     if (allBtn) allBtn.classList.remove("active");
-
     if (set.has(value)) {
         set.delete(value);
         el.classList.remove("active");
-        // Nếu không còn gì được chọn → bật lại "Tất cả"
         if (set.size === 0 && allBtn) allBtn.classList.add("active");
     } else {
         set.add(value);
         el.classList.add("active");
     }
-
     filterRooms();
 }
 
 /* ══════════════════════════════════════════════
    LỌC & HIỂN THỊ
    ══════════════════════════════════════════════ */
+
 function filterRooms() {
     const raw     = document.getElementById("search").value.trim();
-    const keyword = raw; // Giữ nguyên, scoreRoom sẽ xử lý
-
+    const keyword = raw;
     const filtered = rooms
         .map(room => ({ room, score: scoreRoom(room, keyword) }))
         .filter(({ room, score }) => {
             if (score === 0) return false;
-
-            // Lọc giá
             let matchPrice = true;
             if (activePrices.size > 0) {
                 matchPrice = [...activePrices].some(val => {
@@ -234,8 +304,6 @@ function filterRooms() {
                     return room.price >= range.min && room.price <= range.max;
                 });
             }
-
-            // Lọc tiện nghi
             let matchAmenity = true;
             if (activeAmenities.size > 0) {
                 matchAmenity = [...activeAmenities].every(val => {
@@ -243,10 +311,8 @@ function filterRooms() {
                     return room[field] === true;
                 });
             }
-
             return matchPrice && matchAmenity;
         })
-        // Sắp xếp theo điểm phù hợp giảm dần
         .sort((a, b) => b.score - a.score)
         .map(({ room }) => room);
 
@@ -257,12 +323,10 @@ function filterRooms() {
 /* ── HIỂN THỊ PHÒNG ── */
 function displayRooms(data) {
     roomList.innerHTML = "";
-
     if (data.length === 0) {
-        roomList.innerHTML = "<p class='no-result'>😕 Không tìm thấy phòng phù hợp. Hãy thử thay đổi bộ lọc.</p>";
+        roomList.innerHTML = "<p class='no-result'>😕 Không tìm thấy phòng phù hợp tại Đà Nẵng. Hãy thử thay đổi bộ lọc.</p>";
         return;
     }
-
     data.forEach(room => {
         roomList.innerHTML += `
             <div class="room-card">
@@ -296,15 +360,9 @@ function displayRooms(data) {
 function updateResultBar(count, keyword) {
     const bar = document.getElementById("resultBar");
     const hasFilter = keyword || activePrices.size > 0 || activeAmenities.size > 0;
-
-    if (!hasFilter) {
-        bar.style.display = "none";
-        return;
-    }
-
+    if (!hasFilter) { bar.style.display = "none"; return; }
     bar.style.display = "flex";
-    document.getElementById("resultCount").textContent = `Tìm thấy ${count} phòng`;
-
+    document.getElementById("resultCount").textContent = `Tìm thấy ${count} phòng tại Đà Nẵng`;
     const labels = [];
     if (keyword) labels.push(`"${keyword}"`);
     if (activePrices.size > 0)    labels.push(`${activePrices.size} mức giá`);
@@ -313,24 +371,119 @@ function updateResultBar(count, keyword) {
         labels.length ? "· Bộ lọc: " + labels.join(", ") : "";
 }
 
-/* ── GỢI Ý THÔNG MINH ── */
-function smartSuggest() {
+/* ── GỢI Ý THÔNG MINH — CHAT PANEL ── */
+
+function toggleSmartChat() {
+    const chat = document.getElementById("smartChat");
+    chat.classList.toggle("open");
+    if (chat.classList.contains("open")) {
+        setTimeout(() => document.getElementById("smartInput").focus(), 100);
+    }
+}
+
+document.addEventListener("click", function(e) {
+    const wrapper = document.querySelector(".smart-wrapper");
+    const chat    = document.getElementById("smartChat");
+    if (chat && chat.classList.contains("open") && !wrapper.contains(e.target)) {
+        chat.classList.remove("open");
+    }
+});
+
+function sendSmartMessage() {
+    const input = document.getElementById("smartInput");
+    const text  = input.value.trim();
+    if (!text) return;
+    addMsg(text, "msg-user");
+    input.value = "";
+    const result = parseSmartQuery(text);
+    applySmartFilter(result);
+    const reply = buildReply(result);
+    setTimeout(() => addMsg(reply, result.count > 0 ? "msg-result" : "msg-bot"), 300);
+}
+
+function addMsg(text, cls) {
+    const box = document.getElementById("smartMessages");
+    const div = document.createElement("div");
+    div.className = "msg " + cls;
+    div.innerHTML = text;
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+}
+
+/* ── PARSER ── */
+function parseSmartQuery(text) {
+    const t   = normalize(text);
+    const out = { keyword: "", maxPrice: null, minPrice: null, amenities: [], areas: [], count: 0 };
+
+    const underM = t.match(/duoi\s*([\d,.]+)\s*(trieu|tr\b|000000)/);
+    if (underM) out.maxPrice = parseFloat(underM[1].replace(",",".")) * 1000000;
+
+    const aboveM = t.match(/tren\s*([\d,.]+)\s*(trieu|tr\b)/);
+    if (aboveM) out.minPrice = parseFloat(aboveM[1].replace(",",".")) * 1000000;
+
+    const rangeM = t.match(/([\d,.]+)\s*[-–~]\s*([\d,.]+)\s*(trieu|tr\b)/);
+    if (rangeM) {
+        out.minPrice = parseFloat(rangeM[1].replace(",",".")) * 1000000;
+        out.maxPrice = parseFloat(rangeM[2].replace(",",".")) * 1000000;
+    }
+
+    if (/wifi|mang|internet/.test(t))                    out.amenities.push("wifi");
+    if (/may lanh|dieu hoa|lanh\b/.test(t))              out.amenities.push("ac");
+    if (/giu xe|gui xe|dau xe|xe may|parking/.test(t))   out.amenities.push("parking");
+    if (/nong lanh|binh nong|voi nong/.test(t))          out.amenities.push("hotwater");
+    if (/wc rieng|toilet rieng|nha ve sinh rieng|phong tam rieng/.test(t)) out.amenities.push("toilet");
+    if (/gan truong|gan dh|gan dai hoc|sinh vien/.test(t)) out.amenities.push("school");
+
+    // Các quận/huyện tại Đà Nẵng
+    const areaKeywords = [
+        "hai chau", "thanh khe", "ngu hanh son", "son tra",
+        "lien chieu", "cam le", "hoa vang", "hoang sa"
+    ];
+    areaKeywords.forEach(a => {
+        if (t.includes(a)) out.areas.push(a);
+    });
+
+    return out;
+}
+
+/* ── ÁP DỤNG BỘ LỌC TỪ CHAT ── */
+function applySmartFilter(parsed) {
     resetFilter();
+    const filtered = rooms.filter(room => {
+        if (parsed.maxPrice && room.price > parsed.maxPrice) return false;
+        if (parsed.minPrice && room.price < parsed.minPrice) return false;
+        if (parsed.areas.length > 0) {
+            const normArea = normalize(room.area + " " + room.address);
+            const match = parsed.areas.some(a => normArea.includes(a));
+            if (!match) return false;
+        }
+        for (const a of parsed.amenities) {
+            const field = amenityMap[a];
+            if (!room[field]) return false;
+        }
+        return true;
+    });
+    parsed.count = filtered.length;
+    displayRooms(filtered);
+    const bar = document.getElementById("resultBar");
+    bar.style.display = "flex";
+    document.getElementById("resultCount").textContent = `Tìm thấy ${filtered.length} phòng tại Đà Nẵng`;
+    document.getElementById("activeFiltersLabel").textContent = "· Gợi ý thông minh";
+}
 
-    const suggestRooms = rooms
-        .filter(room => room.price <= 3000000)
-        .sort((a, b) => {
-            const score = r =>
-                (r.wifi ? 1 : 0) +
-                (r.airConditioner ? 2 : 0) +
-                (r.parking ? 1 : 0) +
-                (r.hotWater ? 1 : 0) +
-                (r.ownToilet ? 1 : 0) +
-                (r.nearSchool ? 1 : 0);
-            return score(b) - score(a);
-        });
-
-    displayRooms(suggestRooms);
+/* ── TẠO PHẢN HỒI ── */
+function buildReply(parsed) {
+    if (parsed.count === 0) {
+        return "😕 Mình không tìm được phòng nào khớp tại Đà Nẵng. Bạn thử mô tả lại hoặc bớt điều kiện nhé!";
+    }
+    const parts = [];
+    if (parsed.maxPrice) parts.push(`giá dưới ${(parsed.maxPrice/1000000).toFixed(0)} triệu`);
+    if (parsed.minPrice && parsed.maxPrice) parts[parts.length-1] = `giá ${(parsed.minPrice/1e6).toFixed(0)}–${(parsed.maxPrice/1e6).toFixed(0)} triệu`;
+    else if (parsed.minPrice) parts.push(`giá trên ${(parsed.minPrice/1000000).toFixed(0)} triệu`);
+    if (parsed.areas.length)     parts.push(`khu vực phù hợp tại Đà Nẵng`);
+    if (parsed.amenities.length) parts.push(`có ${parsed.amenities.length} tiện nghi yêu cầu`);
+    const criteria = parts.length ? ` (${parts.join(", ")})` : "";
+    return `✅ Tìm được <strong>${parsed.count} phòng</strong>${criteria}. Kết quả đã được hiển thị bên dưới!`;
 }
 
 /* ── XOÁ LỌC ── */
@@ -338,14 +491,36 @@ function resetFilter() {
     document.getElementById("search").value = "";
     activePrices.clear();
     activeAmenities.clear();
-
-    // Reset tất cả chip, bật lại "Tất cả"
     document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
     document.querySelectorAll(".chip-all").forEach(c => c.classList.add("active"));
-
     document.getElementById("resultBar").style.display = "none";
     displayRooms(rooms);
 }
 
 // Hiển thị khi load trang
 displayRooms(rooms);
+
+/* ── BOTTOM NAV ── */
+function setNav(el, tab) {
+    document.querySelectorAll(".nav-item").forEach(b => b.classList.remove("active"));
+    el.classList.add("active");
+    if (tab === "home") {
+        resetFilter();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (tab === "search") {
+        document.getElementById("search").focus();
+        window.scrollTo({ top: 80, behavior: "smooth" });
+    } else if (tab === "post") {
+        alert("Tính năng Đăng tin đang được phát triển! 🚀");
+        el.classList.remove("active");
+        document.querySelector(".nav-item").classList.add("active");
+    } else if (tab === "message") {
+        alert("Tính năng Tin nhắn đang được phát triển! 💬");
+        el.classList.remove("active");
+        document.querySelector(".nav-item").classList.add("active");
+    } else if (tab === "profile") {
+        alert("Tính năng hồ sơ & cài đặt đang được phát triển! 👤");
+        el.classList.remove("active");
+        document.querySelector(".nav-item").classList.add("active");
+    }
+}
