@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR-FindRoom – Tìm Phòng Trọ Đà Nẵng</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Tìm Phòng Trọ Đà Nẵng</h1>
+    </header>
+
+    <section class="search-box">
+        <div class="search-row">
+            <input type="text" id="search" placeholder="Tìm theo quận, tên phòng, số điện thoại, tiện nghi..."
+                   oninput="filterRooms()">
+            <button class="btn-search" onclick="filterRooms()">Tìm kiếm</button>
+        </div>
+        <div class="search-actions">
+            <div class="smart-wrapper">
+                <button class="btn-smart" id="btnSmart" onclick="toggleSmartChat()">✨ Gợi Ý Thông Minh</button>
+                <div class="smart-chat" id="smartChat">
+                    <div class="smart-chat-header">
+                        <span>✨ Tìm phòng thông minh</span>
+                        <button class="smart-chat-close" onclick="toggleSmartChat()">✕</button>
+                    </div>
+                    <div class="smart-chat-messages" id="smartMessages">
+                        <div class="msg msg-bot">Xin chào! Bạn muốn tìm phòng ở đâu tại Đà Nẵng? Ví dụ: <em>"Tôi cần phòng dưới 2 triệu ở Ngũ Hành Sơn, có wifi và giữ xe"</em></div>
+                    </div>
+                    <div class="smart-chat-input">
+                        <input type="text" id="smartInput" placeholder="Mô tả nhu cầu của bạn..." onkeydown="if(event.key==='Enter') sendSmartMessage()">
+                        <button onclick="sendSmartMessage()">Gửi</button>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-reset" onclick="resetFilter()">✕ Xoá lọc</button>
+        </div>
+    </section>
+
+    <section class="filter-section">
+        <div class="filter-group">
+            <span class="filter-label">Giá thuê:</span>
+            <div class="chip-group" id="priceChips">
+                <button class="chip chip-all active" data-value="all" onclick="toggleAll('price', this)">Tất cả</button>
+                <button class="chip" data-value="1000000" onclick="toggleChip('price', '1000000', this)">Dưới 1 triệu</button>
+                <button class="chip" data-value="2000000" onclick="toggleChip('price', '2000000', this)">1 - 2 triệu</button>
+                <button class="chip" data-value="3000000" onclick="toggleChip('price', '3000000', this)">2 - 3 triệu</button>
+                <button class="chip" data-value="5000000" onclick="toggleChip('price', '5000000', this)">3 - 5 triệu</button>
+                <button class="chip" data-value="7000000" onclick="toggleChip('price', '7000000', this)">5 - 7 triệu</button>
+                <button class="chip" data-value="99000000" onclick="toggleChip('price', '99000000', this)">Trên 7 triệu</button>
+            </div>
+        </div>
+
+        <div class="filter-group">
+            <span class="filter-label">Tiện nghi:</span>
+            <div class="chip-group" id="amenityChips">
+                <button class="chip chip-all active" data-value="all" onclick="toggleAll('amenity', this)">Tất cả</button>
+                <button class="chip" data-value="wifi"     onclick="toggleChip('amenity', 'wifi', this)">📶 Wifi</button>
+                <button class="chip" data-value="ac"       onclick="toggleChip('amenity', 'ac', this)">❄️ Máy lạnh</button>
+                <button class="chip" data-value="parking"  onclick="toggleChip('amenity', 'parking', this)">🛵 Giữ xe</button>
+                <button class="chip" data-value="hotwater" onclick="toggleChip('amenity', 'hotwater', this)">🚿 Nóng lạnh</button>
+                <button class="chip" data-value="toilet"   onclick="toggleChip('amenity', 'toilet', this)">🚽 WC riêng</button>
+                <button class="chip" data-value="school"   onclick="toggleChip('amenity', 'school', this)">🏫 Gần trường</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="result-bar" id="resultBar" style="display:none;">
+        <span id="resultCount"></span>
+        <span id="activeFiltersLabel"></span>
+    </div>
+
+    <section id="roomList" class="room-container"></section>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <button class="nav-item" onclick="window.location.href='home.html'">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/>
+                <path d="M9 21V12h6v9"/>
+            </svg>
+            <span>Trang chủ</span>
+        </button>
+        <button class="nav-item active" onclick="setNav(this, 'search')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <span>Tìm phòng</span>
+        </button>
+        <button class="nav-item nav-post" onclick="setNav(this, 'post')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="16"/>
+                <line x1="8" y1="12" x2="16" y2="12"/>
+            </svg>
+            <span>Đăng tin</span>
+        </button>
+        <button class="nav-item" onclick="setNav(this, 'message')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            <span>Tin nhắn</span>
+        </button>
+        <button class="nav-item" onclick="setNav(this, 'profile')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span>Tôi</span>
+        </button>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
