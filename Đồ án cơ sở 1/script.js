@@ -291,8 +291,7 @@ function toggleChip(type, value, el) {
    ══════════════════════════════════════════════ */
 
 function filterRooms() {
-    const raw     = document.getElementById("search").value.trim();
-    const keyword = raw;
+    const keyword = document.getElementById("search").value.trim();
     const filtered = rooms
         .map(room => ({ room, score: scoreRoom(room, keyword) }))
         .filter(({ room, score }) => {
@@ -317,7 +316,7 @@ function filterRooms() {
         .map(({ room }) => room);
 
     displayRooms(filtered);
-    updateResultBar(filtered.length, raw);
+    updateResultBar(filtered.length, keyword);
 }
 
 /* ── HIỂN THỊ PHÒNG ── */
@@ -371,6 +370,37 @@ function updateResultBar(count, keyword) {
         labels.length ? "· Bộ lọc: " + labels.join(", ") : "";
 }
 
+/* ══════════════════════════════════════════════
+   GEMINI AI CONFIG
+   Dán API key của bạn vào đây
+   Lấy miễn phí tại: aistudio.google.com
+   ══════════════════════════════════════════════ */
+const GEMINI_API_KEY = "AIzaSyDkA5FpEj29Gi2R5WBFD1C50xikF5it_kM";
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+const GEMINI_SYSTEM_PROMPT = `Bạn là trợ lý tìm phòng trọ sinh viên tại Đà Nẵng tên là MR-FindRoom. Luôn trả lời thân thiện bằng tiếng Việt.
+
+QUAN TRỌNG: Mọi phản hồi BẮT BUỘC kết thúc bằng đúng 1 thẻ <filter>...</filter>.
+- friendlyReply KHÔNG ĐƯỢC để trống, luôn phải có nội dung.
+- Nếu người dùng chào hỏi hoặc hỏi ngoài chủ đề phòng trọ → điền friendlyReply, còn lại để null/[].
+- Nếu người dùng tìm phòng → điền đầy đủ tất cả các trường.
+
+Định dạng (không thay đổi tên field):
+<filter>{"maxPrice":null,"minPrice":null,"areas":[],"amenities":[],"friendlyReply":"nội dung trả lời"}</filter>
+
+Quy tắc:
+- areas: "Hải Châu","Thanh Khê","Ngũ Hành Sơn","Sơn Trà","Liên Chiểu","Cẩm Lệ","Hòa Vang"
+- amenities: "wifi","ac","parking","hotwater","toilet","school"
+- Giá tính bằng VNĐ ("2 triệu" = 2000000)
+
+Ví dụ 1 — chào hỏi:
+User: "hi"
+<filter>{"maxPrice":null,"minPrice":null,"areas":[],"amenities":[],"friendlyReply":"Xin chào! Mình là MR-FindRoom 🏠 Bạn muốn tìm phòng trọ ở quận nào tại Đà Nẵng?"}</filter>
+
+Ví dụ 2 — tìm phòng:
+User: "tìm phòng dưới 2 triệu ở Ngũ Hành Sơn có wifi"
+<filter>{"maxPrice":2000000,"minPrice":null,"areas":["Ngũ Hành Sơn"],"amenities":["wifi"],"friendlyReply":"Mình tìm thấy một số phòng ở Ngũ Hành Sơn nhé! 🏠"}</filter>`;
+
 /* ── GỢI Ý THÔNG MINH — CHAT PANEL ── */
 
 function toggleSmartChat() {
@@ -389,16 +419,107 @@ document.addEventListener("click", function(e) {
     }
 });
 
-function sendSmartMessage() {
+async function sendSmartMessage() {
     const input = document.getElementById("smartInput");
     const text  = input.value.trim();
     if (!text) return;
+
     addMsg(text, "msg-user");
     input.value = "";
-    const result = parseSmartQuery(text);
-    applySmartFilter(result);
-    const reply = buildReply(result);
-    setTimeout(() => addMsg(reply, result.count > 0 ? "msg-result" : "msg-bot"), 300);
+    input.disabled = true;
+
+    // Hiện loading
+    const loadingId = "loading-" + Date.now();
+    addMsg(`<span id="${loadingId}">⏳ Đang phân tích...</span>`, "msg-bot");
+
+    // Nếu chưa điền API key thì fallback về parser cũ
+    if (!GEMINI_API_KEY || GEMINI_API_KEY === "PASTE_YOUR_KEY_HERE") {
+        document.getElementById(loadingId)?.parentElement?.remove();
+        const result = parseSmartQuery(text);
+        applySmartFilter(result);
+        addMsg(buildReply(result), result.count > 0 ? "msg-result" : "msg-bot");
+        input.disabled = false;
+        input.focus();
+        return;
+    }
+
+    try {
+        const res = await fetch(GEMINI_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{ text: GEMINI_SYSTEM_PROMPT + "\n\nUser: " + text }]
+                }],
+                generationConfig: {
+                    temperature: 0.3,
+                    maxOutputTokens: 512,
+                }
+            })
+        });
+
+        const data = await res.json();
+
+        // Xoá loading
+        document.getElementById(loadingId)?.parentElement?.remove();
+
+        if (!res.ok || !data.candidates?.[0]) {
+            throw new Error(data.error?.message || "Gemini không phản hồi");
+        }
+
+        const rawText = data.candidates[0].content.parts[0].text;
+
+        // Trích filter JSON từ thẻ <filter>...</filter>
+        const filterMatch = rawText.match(/<filter>([\s\S]*?)<\/filter>/);
+        if (filterMatch) {
+            try {
+                const parsed = JSON.parse(filterMatch[1]);
+                const friendlyReply = parsed.friendlyReply || "Mình có thể giúp gì thêm?";
+                delete parsed.friendlyReply;
+                parsed.count = 0;
+
+                // Kiểm tra có tiêu chí lọc phòng không
+                const hasFilter = parsed.maxPrice || parsed.minPrice
+                    || (parsed.areas && parsed.areas.length > 0)
+                    || (parsed.amenities && parsed.amenities.length > 0);
+
+                if (hasFilter) {
+                    // Có tiêu chí → lọc và hiện kết quả
+                    applySmartFilter(parsed);
+                    const resultNote = parsed.count === 0
+                        ? "Không tìm thấy phòng phù hợp 😕"
+                        : `Hiển thị <strong>${parsed.count}</strong> phòng bên dưới ↓`;
+                    addMsg(`${friendlyReply}<br><small style="opacity:.7">→ ${resultNote}</small>`,
+                        parsed.count > 0 ? "msg-result" : "msg-bot");
+                } else {
+                    // Hội thoại thường → chỉ hiện reply, KHÔNG lọc phòng
+                    addMsg(friendlyReply, "msg-bot");
+                }
+            } catch (e) {
+                // JSON parse lỗi → hiện text thô
+                addMsg(rawText.replace(/<filter>[\s\S]*?<\/filter>/g, "").trim()
+                    || "Bạn muốn tìm phòng như thế nào?", "msg-bot");
+            }
+        } else {
+            // Không có thẻ <filter> → hiện text thô
+            addMsg(rawText.trim() || "Bạn muốn tìm phòng như thế nào?", "msg-bot");
+        }
+
+    } catch (err) {
+        document.getElementById(loadingId)?.parentElement?.remove();
+        console.error("Gemini error:", err);
+
+        // Fallback về parser cũ khi lỗi
+        const result = parseSmartQuery(text);
+        applySmartFilter(result);
+        const fallbackMsg = result.count > 0
+            ? buildReply(result)
+            : `❌ Không kết nối được AI (${err.message}). Thử lại sau nhé!`;
+        addMsg(fallbackMsg, result.count > 0 ? "msg-result" : "msg-bot");
+    }
+
+    input.disabled = false;
+    input.focus();
 }
 
 function addMsg(text, cls) {
@@ -454,7 +575,7 @@ function applySmartFilter(parsed) {
         if (parsed.minPrice && room.price < parsed.minPrice) return false;
         if (parsed.areas.length > 0) {
             const normArea = normalize(room.area + " " + room.address);
-            const match = parsed.areas.some(a => normArea.includes(a));
+            const match = parsed.areas.some(a => normArea.includes(normalize(a)));
             if (!match) return false;
         }
         for (const a of parsed.amenities) {
@@ -497,8 +618,20 @@ function resetFilter() {
     displayRooms(rooms);
 }
 
-// Hiển thị khi load trang
-displayRooms(rooms);
+// Hiển thị khi load trang — đọc ?q= từ URL nếu có
+(function initFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get("q");
+    if (q) {
+        const searchEl = document.getElementById("search");
+        if (searchEl) {
+            searchEl.value = q;
+            filterRooms();
+            return;
+        }
+    }
+    displayRooms(rooms);
+})();
 
 /* ── BOTTOM NAV ── */
 function setNav(el, tab) {
